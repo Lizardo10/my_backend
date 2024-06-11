@@ -1,0 +1,36 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Company {
+  name: String!
+  users: [User!]
+  id: ID!
+}
+
+type User {
+  name: String!
+  email: String!
+  companyId: Int!
+  company: Company!
+}
+
+type Query {
+  users(companyId: Int): [User!]!
+  companies: [Company!]!
+}
+
+type Mutation {
+  createUser(createUserDto: CreateUserDto!): User!
+  createCompany(createCompanyDto: CreateCompanyDto!): Company!
+}
+
+input CreateUserDto {
+  name: String!
+  email: String!
+  companyId: Int!
+}
+
+input CreateCompanyDto {
+  name: String!
+}
