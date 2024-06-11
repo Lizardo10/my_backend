@@ -5,17 +5,21 @@ import { join } from 'path';
 import { UserModule } from './user/user.module';
 import { CompanyModule } from './company/company.module';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
     // Setting up Sequelize for database interaction
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     SequelizeModule.forRoot({
       dialect: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'lizardo2024',
-      password: '7OG3TDHWL5oQRj6C',
-      database: 'my_backend',
+      host: process.env.DB_HOST,
+      port: parseInt(process.env.DB_PORT, 10) || 3306,
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME,
       autoLoadModels: true,
       synchronize: true, // Sync models with database
     }),
